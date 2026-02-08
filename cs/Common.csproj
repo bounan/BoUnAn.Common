@@ -9,6 +9,11 @@
     <AssemblyName>Bounan.Common</AssemblyName>
   </PropertyGroup>
 
-  <Import Project="..\StyleCop.props"/>
+  <ItemGroup>
+    <PackageReference Update="StyleCop.Analyzers">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 
 </Project>
