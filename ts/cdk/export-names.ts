@@ -1,6 +1,6 @@
 export enum ExportNames {
     AlertEmail = 'alert-email',
-    LoanApiToken = 'loan-api-token',
+    LoanApiFunctionArn = 'loan-api-function-arn',
 
     VideoRegisteredSnsTopicArn = 'video-registered-sns-topic-arn',
     VideoDownloadedSnsTopicArn = 'video-downloaded-sns-topic-arn',
