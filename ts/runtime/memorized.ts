@@ -1,4 +1,4 @@
-const cache = new Map<string, unknown>();
+export const cache = new Map<string, unknown>();
 
 /**
  * Memorized function to cache results of asynchronous operations.
