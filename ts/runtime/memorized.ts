@@ -1,3 +1,7 @@
+import { createLogger } from './logger';
+
+const logger = createLogger('@common/memorized');
+
 export const cache = new Map<string, unknown>();
 
 /**
@@ -16,23 +20,23 @@ export const cache = new Map<string, unknown>();
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const asyncMemoized = function <Fn extends (...args: any[]) => any>(cachePrefix: string, func: Fn): Fn {
-    // @ts-expect-error - We are using a generic function, so we need to cast it to the correct type.
-    return async (...args: Parameters<Fn>): Promise<Awaited<ReturnType<Fn>>> => {
-        const key = JSON.stringify([cachePrefix, ...args]);
-        const existing = cache.get(key) as ReturnType<Fn> | undefined;
-        if (existing) {
-            console.debug(`Cache hit for key: ${key}`);
-            return existing;
-        }
+  // @ts-expect-error - We are using a generic function, so we need to cast it to the correct type.
+  return async (...args: Parameters<Fn>): Promise<Awaited<ReturnType<Fn>>> => {
+    const key = JSON.stringify([cachePrefix, ...args]);
+    const existing = cache.get(key) as ReturnType<Fn> | undefined;
+    if (existing) {
+      logger.info(`Cache hit for key: ${key}`);
+      return existing;
+    }
 
-        console.debug(`Cache miss for key: ${key}`);
-        try {
-            const result = await func(...args);
-            cache.set(key, result);
-            return result;
-        } catch (err) {
-            cache.delete(key);
-            throw err;
-        }
-    };
+    logger.info(`Cache miss for key: ${key}`);
+    try {
+      const result = await func(...args);
+      cache.set(key, result);
+      return result;
+    } catch (err) {
+      cache.delete(key);
+      throw err;
+    }
+  };
 };
