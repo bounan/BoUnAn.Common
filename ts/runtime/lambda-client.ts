@@ -5,6 +5,7 @@ import { createLogger } from './logger';
 
 const logger = createLogger('@common/lambda-client');
 const lambdaClient = new LambdaClient({});
+const textDecoder = new TextDecoder();
 
 
 export const makeLambdaRequest = async <TRequest, TResponse>(
@@ -24,7 +25,7 @@ export const makeLambdaRequest = async <TRequest, TResponse>(
 
   assert(!!response.Payload, 'Response payload is empty');
 
-  const result: TResponse = JSON.parse(Buffer.from(response.Payload!).toString());
+  const result: TResponse = JSON.parse(textDecoder.decode(response.Payload));
   logger.info('Received response: ', { result });
 
   return result;
