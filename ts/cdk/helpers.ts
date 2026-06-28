@@ -1,10 +1,11 @@
 ﻿import * as cdk from 'aws-cdk-lib';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
+import { ExportNames } from './export-names';
 
 export const getCfnValue = <Config extends Record<string, string>>(
   key: keyof Config,
   prefix: string,
-  exportSuffix: keyof Config & string,
+  exportSuffix: ExportNames,
   overrides: Config,
 ): string => {
   return overrides[key] || cdk.Fn.importValue(prefix + exportSuffix);
