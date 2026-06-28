@@ -1,6 +1,7 @@
 ﻿import * as cdk from 'aws-cdk-lib';
 import * as ssm from 'aws-cdk-lib/aws-ssm';
-import { ExportNames } from './export-names';
+
+import type { ExportNames } from './export-names';
 
 export const getCfnValue = <Config extends Record<string, string>>(
   key: keyof Config,
